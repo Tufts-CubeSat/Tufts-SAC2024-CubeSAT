@@ -1,0 +1,24 @@
+Metadata-Version: 2.1
+Name: sparkfun_qwiic_i2c
+Version: 1.0.0
+Summary: SparkFun Electronics qwiic I2C library
+Home-page: http://www.sparkfun.com/qwiic
+Author: SparkFun Electronics
+Author-email: info@sparkfun.com
+License: MIT
+Keywords: electronics,maker
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+License-File: LICENSE
+Requires-Dist: smbus2
+
+Qwiic I2C Driver
+==========================
+
+This package provdes support cross platform I2C support for the qwiic python packages
