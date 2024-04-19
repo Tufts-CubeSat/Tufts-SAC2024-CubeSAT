@@ -1,30 +1,27 @@
-import qwiic_bme280
+# SPDX-FileCopyrightText: 2019 Bryan Siepert, written for Adafruit Industries
+#
+# SPDX-License-Identifier: Unlicense
 import time
-import sys
+import board
+import adafruit_shtc3
 
-def humidityTelemetry():
+try:
+	i2c = board.I2C()  # uses board.SCL and board.SDA
+	# i2c = board.STEMMA_I2C()  # For using the built-in STEMMA QT connector on a microcontroller
+	sht = adafruit_shtc3.SHTC3(i2c)
+except (ValueError, RuntimeError):
+    sensor_connected = False
+    print("SHTC3 sensor not detected.")
 
-	print("\nTUFTS CUBESAT SPACEPORT AMERICA CUP 2024\n")
-	mySensor = qwiic_bme280.QwiicBme280()
 
-	if mySensor.connected == False:
-		print("The Qwiic BME280 device isn't connected to the system. Please check your connection", \
-			file=sys.stderr)
-		return
+log_file = "humiditysensor_data.log"  # Name of the log file
+with open(log_file, "a") as f:
+                f.write("\nTUFTS CUBESAT SPACEPORT AMERICA CUP 2024\n")
 
-	mySensor.begin()
+while True:
+    temperature, relative_humidity = sht.measurements
+    print("Temperature: %0.1f C" % temperature)
+    print("Humidity: %0.1f %%" % relative_humidity)
+    print("")
+    time.sleep(1)
 
-	while True:
-		print("Humidity:\t%.3f" % mySensor.humidity)
-
-		print("Pressure:\t%.3f" % mySensor.pressure)	
-
-		print("Altitude:\t%.3f" % mySensor.altitude_feet)
-
-		print("Temperature:\t%.2f" % mySensor.temperature_fahrenheit)		
-
-		print("")
-		
-		time.sleep(1)
-
-humidityTelemetry()
